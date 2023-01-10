@@ -215,10 +215,4 @@ if __name__=='__main__':
 	str_listen_port = os.getenv("UGS_LISTEN_PORT", "5001")
 	listen_port=int(str_listen_port)
 	
-	str_debug_mode = os.getenv("UGS_DEBUG_MODE", "false")
-	debug_mode = True if str_debug_mode.lower()=="true" else False
-	app.debug = debug_mode
-	
-	print("ListenPort={0}, DebugMode={1}".format(listen_port, debug_mode))
-	
 	pywsgi.WSGIServer(('0.0.0.0', listen_port), app).serve_forever()

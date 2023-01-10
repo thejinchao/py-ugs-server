@@ -16,6 +16,8 @@ services:
         restart: always
         volumes:
             - "./mysql/db_config.py:/data/api/db_config.py"
+        environment:
+            UGS_LISTEN_PORT: "5001"
         ports:
             - 5001:5001
         depends_on:
