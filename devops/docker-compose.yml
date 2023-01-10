@@ -1,0 +1,25 @@
+version: '3.2'
+services:
+    ugs-mysql:
+        container_name: "ugs-mysql"
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_PASSWORD: "r00tPassw0rd"
+        restart: always
+        volumes:
+            - "./mysql/db:/var/lib/mysql"
+            - "./mysql/conf/my.cnf:/etc/my.cnf"
+            - "./mysql/init:/docker-entrypoint-initdb.d/"
+    ugs-api:
+        container_name: "ugs-api"
+        image: "thejinchao/ugs-python:latest"
+        restart: always
+        volumes:
+            - "./mysql/db_config.py:/data/api/db_config.py"
+        ports:
+            - 5001:5001
+        depends_on:
+            - ugs-mysql
+        links:
+            - ugs-mysql
+
